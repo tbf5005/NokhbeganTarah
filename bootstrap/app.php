@@ -23,21 +23,10 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
-        $middleware->api([
-            HandleCors::class,   // ← ← اضافه کن
+        $middleware->api(prepend: [
+            HandleCors::class,
         ]);
-    })->withMiddlewareConfig([
-        HandleCors::class => [
-            'paths' => ['api/*', 'sanctum/csrf-cookie'],
-            'allowed_methods' => ['*'],
-            'allowed_origins' => [
-                'https://designerelite.ir',
-                'https://www.designerelite.com',
-            ],
-            'allowed_headers' => ['*'],
-            'supports_credentials' => true,
-        ],
-    ])
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
